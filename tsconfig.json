@@ -9,6 +9,7 @@
     "strict": true /* Enable all strict type-checking options. */,
     "allowImportingTsExtensions": true,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types"],
+    "resolveJsonModule": true
   }
 }

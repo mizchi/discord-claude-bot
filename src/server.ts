@@ -3,7 +3,7 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import { AI_COMMAND } from './commands.ts';
+import commands from './commands.json';
 import { chat } from "./ai.ts";
 
 type Env = {
@@ -30,7 +30,7 @@ export default {
     if (interaction.type === InteractionType.APPLICATION_COMMAND) {
       // Most user commands will come as `APPLICATION_COMMAND`.
       switch (interaction.data.name.toLowerCase()) {
-        case AI_COMMAND.name.toLowerCase(): {
+        case commands.CLAUDE_COMMAND.name.toLowerCase(): {
           const message = interaction.data.options[0].value as string;
           ctx.waitUntil(handleDeferredInteraction(message, interaction.token, env));
           return Response.json({

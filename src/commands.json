@@ -1,0 +1,14 @@
+{
+  "CLAUDE_COMMAND": {
+    "options": [
+      {
+        "type": 3,
+        "name": "input",
+        "description": "The text to send to the AI",
+        "required": true
+      }
+    ],
+    "name": "claude",
+    "description": "Chat to Claude3 AI"
+  }
+}

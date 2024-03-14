@@ -14,6 +14,10 @@ Edit `const SYSTEM_PROMPT = ...` in [src/ai.ts](src/ai.ts)
 $ pnpm install
 $ cp example.dev.vars .dev.vars
 
+# update commands
+$ pnpm tsm script/builder.ts # generate src/commands.json
+$ pnpm tsm script/register.ts
+
 # edit .dev.vars
 $ pnpm wrangler secret put DISCORD_APPLICATION_ID
 $ pnpm wrangler secret put DISCORD_PUBLIC_KEY
