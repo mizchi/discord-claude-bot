@@ -1,6 +1,34 @@
-##  Discord AI BOT
+##  Discord AI BOT on cloudflare-workers
 
-https://discord.com/oauth2/authorize?client_id=1217676976735649894&permissions=2147485696&scope=bot+applications.commands
+- TypeScript
+- Claude3 API
+- cloudflare workers
+
+## Customize
+
+Edit `const SYSTEM_PROMPT = ...` in [src/ai.ts](src/ai.ts)
+
+## Setup
+
+```bash
+$ pnpm install
+$ cp example.dev.vars .dev.vars
+
+# edit .dev.vars
+$ pnpm wrangler secret put DISCORD_APPLICATION_ID
+$ pnpm wrangler secret put DISCORD_PUBLIC_KEY
+$ pnpm wrangler secret put DISCORD_TOKEN
+$ pnpm wrangler secret put ANTHROPIC_API_KEY
+
+# release
+$ pnpm wrangler deploy
+```
+
+## TODO
+
+- [ ] short memory
+- [ ] text to img
+- [ ] types
 
 ---
 
