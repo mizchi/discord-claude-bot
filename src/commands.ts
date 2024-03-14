@@ -1,3 +1,6 @@
+// import { SlashCommandBuilder } from 'discord.js';
+// import { SlashCommandBuilder } from "discord-api-types/v10";
+
 export const AI_COMMAND = {
   options: [
     {

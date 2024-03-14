@@ -28,6 +28,9 @@ devDependencies:
   chai:
     specifier: ^5.0.0
     version: 5.1.0
+  discord-api-types:
+    specifier: ^0.37.73
+    version: 0.37.73
   dotenv:
     specifier: ^16.0.3
     version: 16.4.5
@@ -1059,6 +1062,10 @@ packages:
   /discord-api-types@0.37.61:
     resolution: {integrity: sha512-o/dXNFfhBpYHpQFdT6FWzeO7pKc838QeeZ9d91CfVAtpr5XLK4B/zYxQbYgPdoMiTDvJfzcsLW5naXgmHGDNXw==}
     dev: false
+
+  /discord-api-types@0.37.73:
+    resolution: {integrity: sha512-mi915PBUxF1G233EwHKNegNAF/tVfiSRN9+hKwu0G3NpbtLXvWUxCuCjgSyY+QmQ6/Hvpqm0xs5HxzfvhAS20A==}
+    dev: true
 
   /discord-interactions@3.4.0:
     resolution: {integrity: sha512-DG0Jxdd/FcK8liAPhIP4u5YHpnz50JWn9DK4OavxsLD49/WGimXtP3EdOY439MaWyCgQfsfFkA1GsTEyu63RzA==}

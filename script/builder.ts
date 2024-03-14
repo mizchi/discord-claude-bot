@@ -1,4 +1,4 @@
-// const { SlashCommandBuilder } = require('discord.js');
+// create json but not on runtime
 import { SlashCommandBuilder } from "discord.js";
 
 export const AI_COMMAND = new SlashCommandBuilder()
