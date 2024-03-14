@@ -33,6 +33,8 @@ $ pnpm wrangler deploy
 - [ ] short memory
 - [ ] text to img
 - [ ] types
+- [ ] test
+- [ ] ci release
 
 ---
 
