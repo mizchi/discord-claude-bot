@@ -1,5 +1,7 @@
 ##  Discord AI BOT
 
+https://discord.com/oauth2/authorize?client_id=1217676976735649894&permissions=2147485696&scope=bot+applications.commands
+
 ---
 
 # Cloudflare worker example app

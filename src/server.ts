@@ -8,27 +8,20 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
-import { getCuteUrl } from './reddit.js';
-import { InteractionResponseFlags } from 'discord-interactions';
+import { AI_COMMAND } from './commands.ts';
+import { chat } from "./ai.ts";
+// import { getCuteUrl } from './reddit.ts';
+// import { InteractionResponseFlags } from 'discord-interactions';
 
-class JsonResponse extends Response {
-  constructor(body, init) {
-    const jsonBody = JSON.stringify(body);
-    init = init || {
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-      },
-    };
-    super(jsonBody, init);
-  }
-}
+type Env = {
+  DISCORD_PUBLIC_KEY: string; // public key for verifying requests
+  DISCORD_APPLICATION_ID: string; // application id for oauth
+  ANTHROPIC_API_KEY: string; // anthropic api key
+  // cloudflare bindings
+};
 
 const router = Router();
 
-/**
- * A simple :wave: hello page to verify the worker is working.
- */
 router.get('/', (request, env) => {
   return new Response(`👋 ${env.DISCORD_APPLICATION_ID}`);
 });
@@ -47,10 +40,12 @@ router.post('/', async (request, env) => {
     return new Response('Bad request signature.', { status: 401 });
   }
 
+  // if (interaction.type === InteractionType.APPLICATION_COMMAND)
+
   if (interaction.type === InteractionType.PING) {
     // The `PING` message is used during the initial webhook handshake, and is
     // required to configure the webhook in the developer portal.
-    return new JsonResponse({
+    return Response.json({
       type: InteractionResponseType.PONG,
     });
   }
@@ -58,37 +53,34 @@ router.post('/', async (request, env) => {
   if (interaction.type === InteractionType.APPLICATION_COMMAND) {
     // Most user commands will come as `APPLICATION_COMMAND`.
     switch (interaction.data.name.toLowerCase()) {
-      case AWW_COMMAND.name.toLowerCase(): {
-        const cuteUrl = await getCuteUrl();
-        return new JsonResponse({
+      case AI_COMMAND.name.toLowerCase(): {
+        // const message = "Hello!";
+        console.log("debug:req", JSON.stringify(interaction, null, 2));
+        const payload = interaction.data.options[0].value as string;
+        // const res = await chat(payload, {
+        //   apiKey: env.ANTHROPIC_API_KEY,
+        // });
+        // console.log("debug:res", res);
+
+        const res = `echo: ${payload}`;
+        return Response.json({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: cuteUrl,
-          },
-        });
-      }
-      case INVITE_COMMAND.name.toLowerCase(): {
-        const applicationId = env.DISCORD_APPLICATION_ID;
-        const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${applicationId}&scope=applications.commands`;
-        return new JsonResponse({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: INVITE_URL,
-            flags: InteractionResponseFlags.EPHEMERAL,
+            content: res,
           },
         });
       }
       default:
-        return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });
+        return Response.json({ error: 'Unknown Type' }, { status: 400 });
     }
   }
 
   console.error('Unknown Type');
-  return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });
+  return Response.json({ error: 'Unknown Type' }, { status: 400 });
 });
 router.all('*', () => new Response('Not Found.', { status: 404 }));
 
-async function verifyDiscordRequest(request, env) {
+async function verifyDiscordRequest(request: Request, env: Env) {
   const signature = request.headers.get('x-signature-ed25519');
   const timestamp = request.headers.get('x-signature-timestamp');
   const body = await request.text();
@@ -104,7 +96,7 @@ async function verifyDiscordRequest(request, env) {
 
 const server = {
   verifyDiscordRequest: verifyDiscordRequest,
-  async fetch(request, env) {
+  async fetch(request: Request, env: Env) {
     return router.handle(request, env);
   },
 };

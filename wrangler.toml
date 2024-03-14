@@ -1,5 +1,5 @@
 name = "awwbot"
-main = "./src/server.js"
+main = "./src/server.ts"
 compatibility_date="2023-05-18"
 
 # [secrets]
