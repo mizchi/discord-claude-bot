@@ -99,13 +99,12 @@ async function verifyDiscordRequest(request, env) {
   if (!isValidRequest) {
     return { isValid: false };
   }
-
   return { interaction: JSON.parse(body), isValid: true };
 }
 
 const server = {
   verifyDiscordRequest: verifyDiscordRequest,
-  fetch: async function (request, env) {
+  async fetch(request, env) {
     return router.handle(request, env);
   },
 };

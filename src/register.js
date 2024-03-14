@@ -1,3 +1,4 @@
+// https://discord.com/oauth2/authorize?client_id=1217676976735649894&permissions=2147485696&scope=bot+applications.commands
 import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
@@ -12,6 +13,8 @@ dotenv.config({ path: '.dev.vars' });
 
 const token = process.env.DISCORD_TOKEN;
 const applicationId = process.env.DISCORD_APPLICATION_ID;
+
+console.log('Registering commands with token:', applicationId, token);
 
 if (!token) {
   throw new Error('The DISCORD_TOKEN environment variable is required.');
