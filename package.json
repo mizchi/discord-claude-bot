@@ -12,8 +12,7 @@
     "test": "c8 mocha test",
     "fix": "eslint --fix '**/*.js'",
     "lint": "eslint '**/*.js'",
-    "register": "node src/register.js",
-    "publish": "wrangler deploy"
+    "register": "node src/register.js"
   },
   "keywords": [],
   "author": "Kotaro Chikuba <miz404@gmail.com>",
