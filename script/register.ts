@@ -1,4 +1,3 @@
-import { AI_COMMAND } from '../src/commands.ts';
 import commands from "../src/commands.json";
 import dotenv from 'dotenv';
 import process from 'node:process';
@@ -37,7 +36,7 @@ const response = await fetch(url, {
     Authorization: `Bot ${token}`,
   },
   method: 'PUT',
-  body: JSON.stringify([commands.CLAUDE_COMMAND]),
+  body: JSON.stringify([...Object.values(commands)]),
 });
 
 if (response.ok) {

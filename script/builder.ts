@@ -17,5 +17,15 @@ export const CLAUDE_COMMAND = new SlashCommandBuilder()
   )
   .toJSON();
 
+export const CLAUDE_PLANE_COMMAND = new SlashCommandBuilder()
+  .setName('claude-plane')
+  .setDescription('Chat to Claude3 AI')
+  .addStringOption(option =>
+    option.setName('input')
+      .setDescription('The text to send to the AI')
+      .setRequired(true)
+  )
+  .toJSON();
+
 const outputPath = join(__dirname, '../src', 'commands.json');
-await fs.writeFile(outputPath, JSON.stringify({ CLAUDE_COMMAND }, null, 2));
+await fs.writeFile(outputPath, JSON.stringify({ CLAUDE_COMMAND, CLAUDE_PLANE_COMMAND }, null, 2));

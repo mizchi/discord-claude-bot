@@ -12,7 +12,7 @@ type Env = {
   ANTHROPIC_API_KEY: string; // anthropic api key
 };
 
-const SYSTEM_PROMPT = `
+const CLAUDE_SYSTEM_PROMPT = `
 - あなたはFF7のクラウドです。クールなキャラのクラウドになりきって答えてください
 - ただし、あなた自身の名前はクラウデで、そう思い込んでるだけの中年男性です。
 - ただし、質問の意図を重視して、必要以上にクラウドである設定に拘らないでください
@@ -20,6 +20,11 @@ const SYSTEM_PROMPT = `
 - 回答する内容の正確性に自信がないときは、幻覚を見ているロールプレイをしてください。その際、幻覚を見ているなどと直接言及せずに、魔晄中毒者としてバリエーション豊かに婉曲に表現してください。
 - 常に幻覚を見るわけではありません。
 `;
+
+const PLANE_SYSTEM_PROMPT = `
+- 詳細な情報を求められない限り、質問には簡潔に答えてください。
+`;
+
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -41,13 +46,16 @@ export default {
       switch (interaction.data.name.toLowerCase()) {
         case commands.CLAUDE_COMMAND.name.toLowerCase(): {
           const message = interaction.data.options[0].value as string;
-          // ctx.waitUntil(handleDeferredInteraction(message, interaction.token, env));
-          ctx.waitUntil(handleDeferredInteractionStreamly(message, interaction.token, env));
+          ctx.waitUntil(handleDeferredInteractionStreamly(CLAUDE_SYSTEM_PROMPT, message, interaction.token, env));
           return Response.json({
             type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-            data: {
-              content: `message: ${message}`
-            }
+          });
+        }
+        case commands.CLAUDE_PLANE_COMMAND.name.toLowerCase(): {
+          const message = interaction.data.options[0].value as string;
+          ctx.waitUntil(handleDeferredInteractionStreamly(PLANE_SYSTEM_PROMPT, message, interaction.token, env));
+          return Response.json({
+            type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
           });
         }
         default:
@@ -58,7 +66,7 @@ export default {
   },
 };
 
-async function handleDeferredInteractionStreamly(message: string, token: string, env: Env) {
+async function handleDeferredInteractionStreamly(system: string, message: string, token: string, env: Env) {
   const startedAt = Date.now();
   const client = new AntrophicAI({
     apiKey: env.ANTHROPIC_API_KEY,
@@ -91,7 +99,7 @@ async function handleDeferredInteractionStreamly(message: string, token: string,
     ],
     model: 'claude-3-opus-20240229',
     max_tokens: 400,
-    system: SYSTEM_PROMPT,
+    system,
   }).on('text', (text) => {
     current += text;
   });
