@@ -15,8 +15,8 @@ dependencies:
     specifier: ^14.14.1
     version: 14.14.1
   itty-router:
-    specifier: ^4.0.13
-    version: 4.2.1
+    specifier: ^5.0.16
+    version: 5.0.16
 
 devDependencies:
   '@cloudflare/workers-types':
@@ -1898,8 +1898,8 @@ packages:
       istanbul-lib-report: 3.0.1
     dev: true
 
-  /itty-router@4.2.1:
-    resolution: {integrity: sha512-aCcqvSHMvkxoYP8CCmgkPxXgZ1AHvNg8AEYs78liW8OOjCogVYnEksIxZ8j4X9ev4KPBDCL1xAXiCiB8FuSxEA==}
+  /itty-router@5.0.16:
+    resolution: {integrity: sha512-Kzk07Cx1dXvwtbCVeLvIT7W9uQaJc3UdWb6L57aSt8usqAWpQJziH3UgSWw2k7up00ImPeNACXY7zHE7eEPd7w==}
     dev: false
 
   /js-yaml@4.1.0:
