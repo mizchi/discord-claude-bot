@@ -1,0 +1,11 @@
+name = "discord-chatbot"
+main = "src/server.ts"
+compatibility_flags = [ "nodejs_compat" ]
+compatibility_date = "2024-09-23"
+
+kv_namespaces = [
+  { binding = "CHAT_HISTORY", id = "d403c444f54c4badaf80c5691027ce9b", preview_id = "cbbd53a4b72a469dbbf1914c477c8ddc" }
+]
+
+[observability]
+enabled = true
