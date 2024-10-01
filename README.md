@@ -1,12 +1,9 @@
-##  Discord AI BOT on cloudflare-workers
+##  Discord AI Chatbot on cloudflare-workers
 
+- Discord API
 - TypeScript
-- Claude3 API
+- Claude 3.5
 - cloudflare workers
-
-## Customize
-
-Edit `const SYSTEM_PROMPT = ...` in [src/ai.ts](src/ai.ts)
 
 ## Setup
 
@@ -30,13 +27,15 @@ $ pnpm wrangler deploy
 
 ## TODO
 
-- [ ] short memory
+- [x] short memory
 - [ ] text to img
-- [ ] types
+- [x] types
 - [ ] test
 - [ ] ci release
 
 ---
+
+Original README
 
 # Cloudflare worker example app
 
